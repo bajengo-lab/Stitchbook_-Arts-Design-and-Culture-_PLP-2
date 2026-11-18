@@ -1,0 +1,1 @@
+-- Tables: customers, orders. Owner: Mohammed.
