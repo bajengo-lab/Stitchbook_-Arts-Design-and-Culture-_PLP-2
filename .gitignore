@@ -1,9 +1,17 @@
+# Local environment settings (contains database password)
 .env
+
+# Python bytecode and cache folders
 __pycache__/
 *.pyc
+
+# Virtual environment folders
 venv/
 .venv/
-.idea/
+
+# Editor settings
 .vscode/
-.DS_Store
-*.pem
+.idea/
+
+# Error log (created with: python main.py 2> errors.log)
+errors.log

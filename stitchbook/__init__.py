@@ -1,1 +1,0 @@
-"""Stitchbook package."""
