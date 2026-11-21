@@ -1,5 +1,3 @@
-"""Option 2: view and update orders. Owner: Hwa-Pyong."""
-
 """
 Option 2: View / update orders.
 Allows the tailor to view all orders, search a customer by name or phone,
@@ -12,7 +10,7 @@ import traceback
 from typing import Any, cast
 
 from database.connection import get_connection
-from menus.add_order_menu import collect_and_save_order_for_customer
+from menus.option1_add_order import collect_and_save_order_for_customer
 from models.customer import Customer
 from models.order import Order
 
