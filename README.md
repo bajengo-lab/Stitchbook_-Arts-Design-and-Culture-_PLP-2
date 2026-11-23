@@ -2,7 +2,7 @@
 
 A menu-driven terminal app that helps tailors and clothing designers manage their business: customer orders, measurements, payments and delivery dates. Clients can check the status of their own orders.
 
-**Built for Ubuntu / Linux.** Needs Python 3.10+ and MySQL.
+**Built for Ubuntu / Linux, with notes for Windows at the bottom.** Needs Python 3.10+ and MySQL.
 
 ---
 
@@ -39,6 +39,7 @@ A menu-driven terminal app that helps tailors and clothing designers manage thei
   - [Course concepts used](#course-concepts-used)
 - [Quick test](#quick-test)
 - [Problems?](#problems)
+- [Windows users](#windows-users)
 
 ---
 
@@ -196,7 +197,7 @@ Connected to database 'defaultdb' as 'avnadmin@...' and found both tables ('cust
 
 ### A8. Set the tailor's details
 
-Open `menus/option4_client_menu.py` and change these two lines at the top.
+Open `menus/option4_client_menu.py` and change these two lines at the top. Clients see them on their order screen.
 
 ```python
 TAILOR_NAME = "Your Name"
@@ -312,7 +313,7 @@ Connected to database 'stitchbook' as 'stitchbook_user@localhost' and found both
 
 ### B8. Set the tailor's details
 
-Open `menus/client_menu.py` and change these two lines at the top. Clients see them on their order screen.
+Open `menus/option4_client_menu.py` and change these two lines at the top. Clients see them on their order screen.
 
 ```python
 TAILOR_NAME = "Your Name"
@@ -423,3 +424,24 @@ Works the same in Part A and Part B.
 | `Can't connect to MySQL server`            | `sudo systemctl start mysql`                                      |
 | `Unknown database 'stitchbook'`            | Re-run step B6a                                                   |
 | `Table 'stitchbook.orders' doesn't exist`  | Re-run step B6b                                                   |
+
+---
+
+## Windows users
+
+The app runs on Windows too. Follow Part A or Part B as written, but use these commands instead:
+
+| Step                        | Ubuntu / Linux                    | Windows                                                                                                                                                                                                                                                                                          |
+| --------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Install tools               | `sudo apt install ...`            | Install Python from python.org (tick "Add Python to PATH"), Git from git-scm.com, and MySQL from dev.mysql.com/downloads/installer. Part A (Aiven) only needs the client: choose "Client only" in the installer, or Custom and select only the client programs. Part B (local) needs the server. |
+| Create the venv             | `python3 -m venv venv`            | `python -m venv venv`                                                                                                                                                                                                                                                                            |
+| Activate the venv           | `source venv/bin/activate`        | `venv\Scripts\activate`                                                                                                                                                                                                                                                                          |
+| Copy the settings file      | `cp .env.example .env`            | `copy .env.example .env`                                                                                                                                                                                                                                                                         |
+| Start MySQL (Part B)        | `sudo systemctl start mysql`      | MySQL runs as a Windows service after install. Start it from the Services app if needed.                                                                                                                                                                                                         |
+| Create DB and user (Part B) | `sudo mysql -e "..."`             | `mysql -u root -p -e "..."` with the same SQL inside the quotes                                                                                                                                                                                                                                  |
+| Load the tables             | `mysql ... < database/schema.sql` | Use Command Prompt (`cmd`) with the same command. In PowerShell use `Get-Content database\schema.sql \| mysql ...` with the same options                                                                                                                                                         |
+
+Two Windows tips:
+
+- If `mysql` is not recognized, add `C:\Program Files\MySQL\MySQL Server 8.0\bin` to your `Path` (the folder name may differ with the version) and open a new terminal.
+- If PowerShell says running scripts is disabled when you activate the venv, run this once and try again: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
