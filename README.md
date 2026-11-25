@@ -441,7 +441,3 @@ The app runs on Windows too. Follow Part A or Part B as written, but use these c
 | Create DB and user (Part B) | `sudo mysql -e "..."`             | `mysql -u root -p -e "..."` with the same SQL inside the quotes                                                                                                                                                                                                                                  |
 | Load the tables             | `mysql ... < database/schema.sql` | Use Command Prompt (`cmd`) with the same command. In PowerShell use `Get-Content database\schema.sql \| mysql ...` with the same options                                                                                                                                                         |
 
-Two Windows tips:
-
-- If `mysql` is not recognized, add `C:\Program Files\MySQL\MySQL Server 8.0\bin` to your `Path` (the folder name may differ with the version) and open a new terminal.
-- If PowerShell says running scripts is disabled when you activate the venv, run this once and try again: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
