@@ -441,3 +441,63 @@ The app runs on Windows too. Follow Part A or Part B as written, but use these c
 | Create DB and user (Part B) | `sudo mysql -e "..."`             | `mysql -u root -p -e "..."` with the same SQL inside the quotes                                                                                                                                                                                                                                  |
 | Load the tables             | `mysql ... < database/schema.sql` | Use Command Prompt (`cmd`) with the same command. In PowerShell use `Get-Content database\schema.sql \| mysql ...` with the same options                                                                                                                                                         |
 
+## Windows users
+
+Follow Part A or Part B as written. When you reach one of these steps, use the Windows version instead. Everything else stays the same.
+
+**Install the tools** (instead of `sudo apt install ...`)
+
+- Python: [python.org](https://www.python.org/downloads/) (tick "Add Python to PATH")
+- Git: [git-scm.com](https://git-scm.com/downloads)
+- MySQL: [MySQL Installer](https://dev.mysql.com/downloads/installer/). For Part A, install only the client ("Client only", or select the client programs under "Custom"). For Part B, install the server too.
+
+**Check Python** (instead of `python3 --version`)
+
+```bat
+python --version
+```
+
+**Create the virtual environment** (instead of `python3 -m venv venv`)
+
+```bat
+python -m venv venv
+```
+
+**Activate it** (instead of `source venv/bin/activate`)
+
+```bat
+venv\Scripts\activate
+```
+
+**Copy the settings file** (instead of `cp .env.example .env`)
+
+```bat
+copy .env.example .env
+```
+
+**Start MySQL, Part B only** (instead of `sudo systemctl start mysql`)
+
+MySQL usually runs as a Windows service after install. If it is not running, start it from the **Services** app.
+
+**Create the database and user, Part B only** (instead of `sudo mysql -e "..."`)
+
+```bat
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS stitchbook; CREATE USER IF NOT EXISTS 'stitchbook_user'@'localhost' IDENTIFIED BY 'stitchbook_pass'; GRANT ALL PRIVILEGES ON stitchbook.* TO 'stitchbook_user'@'localhost'; FLUSH PRIVILEGES;"
+```
+
+**Create the tables** (steps A6 and B6b)
+
+In Command Prompt, use the same command as in the step. PowerShell does not support `<`, so use one of these there:
+
+```powershell
+# Part A (Aiven)
+Get-Content database\schema.sql | mysql -h <host> -P <port> -u avnadmin -p --ssl-ca=certs/ca.pem defaultdb
+
+# Part B (local)
+Get-Content database\schema.sql | mysql -u stitchbook_user -p stitchbook
+```
+
+Two Windows tips:
+
+- If `mysql` is not recognized, add `C:\Program Files\MySQL\MySQL Server 8.0\bin` to your `Path` (the folder name may differ with the version) and open a new terminal.
+- If PowerShell says running scripts is disabled when you activate the venv, run this once and try again: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
